@@ -22,3 +22,15 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.celulaArquivos {
+    text-align: right;
+}
+
+
+.img-responsive {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    text-align: center;
+}

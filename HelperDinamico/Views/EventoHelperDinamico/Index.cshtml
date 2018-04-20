@@ -1,0 +1,104 @@
+﻿@using HelperDinamico.Models
+@model IList<EventoViewModel>
+@{
+    ViewBag.Title = "Eventos do Helper Dinâmico";
+    ViewBag.Subtitle = "Dados do FMDS Eletro...";
+}
+<div class="jumbotron">
+    <h1>@ViewBag.Title</h1>
+</div>
+
+<h4 color="red">@ViewBag.Subtitle</h4>
+
+
+<table class="table table-striped">
+    <tr class="success">
+        <th>
+            Locomotiva
+        </th>
+        <td>
+            Eventos
+        </td>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td class="">
+                <div class="celulaArquivos">
+                    <a class="action">Eventos</a>
+                </div>
+                <div class="itens">
+                    <table class="table table-striped">
+                        <tr class="success">
+                            <th>
+                                Descrição
+                            </th>
+                            <th>
+                                Sala
+                            </th>
+                            <th>
+                                Data
+                            </th>
+                            <td>
+                                Descrição Completa
+                            </td>
+                        </tr>
+                        @{
+                            foreach (var ev in item.Eventos)
+                            {
+
+                        <tr class="">
+                            <th>
+                                @Html.DisplayFor(modelItem => ev.Descricao)
+                            </th>
+                            <th>
+                                @Html.DisplayFor(modelItem => ev.Sala)
+                            </th>
+                            <th>
+                                @Html.DisplayFor(modelItem => ev.InicioAvaria)
+                            </th>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => ev.DescricaoDetalhada)
+                            </td>
+                        </tr>
+                            }
+                        }
+                    </table>
+                </div>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<script>
+    var buttons = document.getElementsByClassName("action");
+    var itens = document.getElementsByClassName("itens");
+
+    function showHide() {
+
+        var lvitens = this.parentNode.parentNode.getElementsByClassName("itens");
+
+        for (var i = 0; i < lvitens.length; i++) {
+
+            if (lvitens[i].style.display == "none") {
+                lvitens[i].style.display = 'inline';
+            }
+            else
+                lvitens[i].style.display = 'none';
+
+        }
+    }
+
+    for (var i = 0; i < buttons.length; i++)
+        buttons[i].onclick = showHide;
+
+    for (var i = 0; i < itens.length; i++)
+        itens[i].style.display = 'none';
+
+</script>

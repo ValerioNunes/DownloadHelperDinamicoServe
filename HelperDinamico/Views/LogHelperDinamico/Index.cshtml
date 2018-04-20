@@ -1,0 +1,76 @@
+﻿@using HelperDinamico.Models
+@model IList<LocomotivaViewModel>
+@{
+    ViewBag.Title = "Logs do Helper Dinâmico";
+    ViewBag.Subtitle = "Atenção: O Log ficará disponibilizado por no máximo 7 dias.";
+}
+<div class="jumbotron">
+    <h1>@ViewBag.Title</h1>
+</div>
+
+<h4 color="red">@ViewBag.Subtitle</h4>
+
+
+<table class="table table-striped">
+    <tr class="success">
+        <th>
+            Locomotiva
+        </th>
+        <td>
+            Logs Disponíveis
+        </td>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td class="">
+                <div class="celulaArquivos">
+                    <a class="action">Arquivos</a>
+                </div>
+                <ul class="itens">
+                    @{
+                        foreach (var arq in item.Arquivos)
+                        {
+
+                            <li>
+                                @Html.ActionLink(arq.Name, "Baixar", new { fileInfo = arq.Name })
+                            </li>
+                        }
+                    }
+                </ul>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<script>
+    var buttons = document.getElementsByClassName("action");
+    var itens = document.getElementsByClassName("itens");
+
+    function showHide() {
+
+        var lvitens = this.parentNode.parentNode.getElementsByClassName("itens");
+
+        for (var i = 0; i < lvitens.length; i++) {
+            
+            if (lvitens[i].style.display == "none") {
+                lvitens[i].style.display = 'inline';               
+            }
+            else
+                lvitens[i].style.display = 'none';
+            
+        }
+    }
+
+    for (var i = 0; i < buttons.length; i++)
+        buttons[i].onclick = showHide;
+
+    for (var i = 0; i < itens.length; i++)
+        itens[i].style.display = 'none';
+
+</script>
