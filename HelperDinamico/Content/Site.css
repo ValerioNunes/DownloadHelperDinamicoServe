@@ -34,3 +34,13 @@ textarea {
     display: block;
     text-align: center;
 }
+
+.blackHeader {
+    text-align: center;
+    background-color: black !important;
+    color: white;
+}
+
+.tabelaTitulo {
+    font-size: 36px;
+}

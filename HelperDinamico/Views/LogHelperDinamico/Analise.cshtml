@@ -1,0 +1,159 @@
+﻿@using HelperDinamico.Models
+@{
+    ViewBag.Title = "Analise";
+    List<InfoLog> infoLogs = ViewBag.Infolog;
+    List<Evento> Eventos = ViewBag.Eventos;
+    List<InfoLog> alarmes = infoLogs.Where(x => x.Nome == "Alarmes").ToList();
+    List<InfoLog> EOT = infoLogs.Where(x => x.Nome == "EOT").ToList();
+    List<InfoLog> CorteTracaoEmergencia = infoLogs.Where(x => x.Nome == "CorteTracaoEmergencia").ToList();
+    var nomeLog = infoLogs.FirstOrDefault().Log;
+    var loco_data_hora = nomeLog.Split(' ');
+    var loco = loco_data_hora[0];
+    var data = DateTime.Parse(loco_data_hora[1]).ToString("dd/MM/yyyy");
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped tabelaTitulo">
+            <tr class="">
+                <td class="text-center">
+                    Locomotiva
+                </td>
+                <td class="text-center">
+                    Data de Download
+                </td>
+            </tr>
+            <tr class="">
+                <td class="text-center">
+                    @loco
+                </td>
+                <td class="text-center">
+                    @data
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <tr class="">
+        <td colspan="4" class="text-center blackHeader">
+            Eventos Relacionados
+        </td>
+    </tr>
+    <tr class="success">
+        <th>
+            Descrição
+        </th>
+        <th>
+            Sala
+        </th>
+        <th>
+            Data
+        </th>
+        <td>
+            Descrição Completa
+        </td>
+    </tr>
+    @{
+        foreach (var ev in Eventos)
+        {
+
+            <tr class="">
+                <th>
+                    @Html.DisplayFor(modelItem => ev.Descricao)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => ev.Sala)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => ev.InicioAvaria)
+                </th>
+
+                <td>
+                    @Html.DisplayFor(modelItem => ev.DescricaoDetalhada)
+                </td>
+            </tr>
+        }
+    }
+</table>
+
+
+
+
+@if (alarmes != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <tr class="">
+                    <td colspan="2" class="text-center blackHeader">
+                        Alarmes
+                    </td>
+                </tr>
+                <tr class="alert-link">
+                    <td class="text-center blackHeader">Data</td>
+                    <td class="text-center blackHeader">Descrição</td>
+                </tr>
+                @foreach (var log in alarmes)
+                {
+                    <tr>
+                        <td>@log.Data</td>
+                        <td>@Html.Raw(log.Descricao.Replace("|", "<br/>"))</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+}
+@if (CorteTracaoEmergencia != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <tr class="">
+                    <td colspan="2" class="text-center blackHeader">
+                        Corte Tração e Emergência
+                    </td>
+                </tr>
+                <tr class="alert-link">
+                    <td class="text-center blackHeader">Data</td>
+                    <td class="text-center blackHeader">Descrição</td>
+                </tr>
+                @foreach (var log in CorteTracaoEmergencia)
+                {
+                    <tr>
+                        <td>@log.Data</td>
+                        <td>@Html.Raw(log.Descricao.Replace("|", "<br/>"))</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+}
+@if (EOT != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <tr class="">
+                    <td colspan="2" class="text-center blackHeader">
+                        EOT
+                    </td>
+                </tr>
+                <tr class="alert-link">
+                    <td class="text-center blackHeader">Data</td>
+                    <td class="text-center blackHeader">Descrição</td>
+                </tr>
+                @foreach (var log in EOT)
+                {
+                    <tr>
+                        <td>@log.Data</td>
+                        <td>@Html.Raw(log.Descricao.Replace("|", "<br/>"))</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+}
+

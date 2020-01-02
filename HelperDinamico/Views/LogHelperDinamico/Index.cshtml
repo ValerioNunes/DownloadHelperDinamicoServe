@@ -31,17 +31,35 @@
                 <div class="celulaArquivos">
                     <a class="action">Arquivos</a>
                 </div>
-                <ul class="itens">
+                <div class="row itens">
                     @{
                         foreach (var arq in item.Arquivos)
                         {
-
-                            <li>
-                                @Html.ActionLink(arq.Name, "Baixar", new { fileInfo = arq.Name })
-                            </li>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <a class="btn btn-warning" href="@Url.Action("Baixar")?fileInfo=@arq.Name">
+                                            <span aria-hidden="true" class="glyphicon glyphicon-download"></span>
+                                            @arq.Name
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a class="btn btn-success" href="@Url.Action("BaixarXls")?fileDir=@arq.DirectoryName&fileName=@arq.Name">
+                                            <span aria-hidden="true" class="glyphicon glyphicon-download"></span>
+                                            Log em Excel
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a class="btn btn-primary" href="@Url.Action("Analisar")?fileDir=@arq.DirectoryName&fileName=@arq.Name">
+                                            <span aria-hidden="true" class="glyphicon glyphicon-stats"></span>
+                                            Analisar Log
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         }
                     }
-                </ul>
+                </div>
             </td>
         </tr>
     }
@@ -50,20 +68,20 @@
 
 <script>
     var buttons = document.getElementsByClassName("action");
-    var itens = document.getElementsByClassName("itens");
+    var itens = document.getElementsByClassName("itens"); // lista
 
     function showHide() {
 
         var lvitens = this.parentNode.parentNode.getElementsByClassName("itens");
 
         for (var i = 0; i < lvitens.length; i++) {
-            
+
             if (lvitens[i].style.display == "none") {
-                lvitens[i].style.display = 'inline';               
+                lvitens[i].style.display = 'inline';
             }
             else
                 lvitens[i].style.display = 'none';
-            
+
         }
     }
 

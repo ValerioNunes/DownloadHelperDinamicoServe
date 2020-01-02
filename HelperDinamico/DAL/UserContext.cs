@@ -1,5 +1,5 @@
-﻿using HelperDinamico.Models;
-using MySql.Data.Entity;
+﻿using MySql.Data.Entity;
+using HelperDinamico.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -7,12 +7,12 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Web;
 
-namespace HelperDinamico.DAL
+namespace HelperDinamico.Dal
 {
     //[DbConfigurationType(typeof(MySqlEFConfiguration))]
-    public class IpHelperDinamicoContext : DbContext
+    public class UserContext : DbContext
     {
-        public IpHelperDinamicoContext() : base("name=IpHelperDinamicoContext")
+        public UserContext() : base("name=SMSContext")
         {
 
         }
@@ -21,9 +21,8 @@ namespace HelperDinamico.DAL
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             base.OnModelCreating(modelBuilder);
-        }
-
-        public virtual IDbSet<IpHelperDinamico> IpHelperDinamico { get; set; }
-        public virtual IDbSet<Locomotiva> Locomotiva { get; set; }
+        }       
+        
+        public virtual IDbSet<SmsQueue> SmsQueue { get; set; }
     }
 }

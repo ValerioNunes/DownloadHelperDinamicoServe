@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Helper Dinâmico</title>
@@ -21,14 +21,17 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Início", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Sobre", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contato", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Downloads de Logs", "Index", "LogHelperDinamico")</li>
+                    <li>@Html.ActionLink("Eventos do Helper Dinâmico", "Index", "EventoHelperDinamico")</li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="container body-content">
+        @if (ViewBag.Message != null)
+        {
+            <p class="alert alert-danger">@ViewBag.Message</p>
+        }
         @RenderBody()
         <hr />
         <footer>
